@@ -230,4 +230,14 @@ function updateEmployeeManager() {
       });
   })
 }
+function viewRoles() {
+  db.findAllRoles()
+    .then(([rows]) => {
+      let roles = rows;
+      console.log("\n");
+      console.table(roles);
+    })
+    .then(() => loadMainPrompts());
+}
+// Add a role
 
