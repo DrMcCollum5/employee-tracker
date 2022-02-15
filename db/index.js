@@ -21,9 +21,7 @@ class DB {
       );
   }
   createEmployee(employee) {
-    return this.connection
-      .promise()
-      .query("INSERT INTO employee SET ?", employee);
+    return this.connection.promise().query("INSERT INTO employee SET ?", employee);
   }
   removeEmployee(employeeId) {
     return this.connection
@@ -47,11 +45,7 @@ class DB {
       ]);
   }
   findAllRoles() {
-    return this.connection
-      .promise()
-      .query(
-        "SELECT role.id, role.title, department.name AS department, role.salary FROM role LEFT JOIN department on role.department_id = department.id;"
-      );
+    return this.connection.query("SELECT role.id, role.title, department.name AS department, role.salary FROM role LEFT JOIN department on role.department_id = department.id;");
   }
   createRole(role) {
     return this.connection.promise().query("INSERT INTO role SET ?", role);
@@ -98,4 +92,4 @@ class DB {
   }
 }
 
-module.export = new DB(connection);
+module.exports = new DB(connection);

@@ -1,6 +1,6 @@
-const { prompt } = require("inquire");
+const { prompt } = require("inquirer");
 const logo = require("asciiart-logo");
-const db = require("./db");
+const db = require('./db')
 require("console.table");
 
 init();
@@ -86,12 +86,12 @@ function loadMainPrompts() {
       case "VIEW_EMPLOYEES":
         viewEmployees();
         break;
-      case "VIEW_EMPLOYEES_BY_DEPARTMENT":
-        viewEmployeesByDepartment();
-        break;
-      case "VIEW_EMPLOYEES_BY_MANAGER":
-        viewEmployeesByManager();
-        break;
+      // case "VIEW_EMPLOYEES_BY_DEPARTMENT":
+      //   viewEmployeesByDepartment();
+      //   break;
+      // case "VIEW_EMPLOYEES_BY_MANAGER":
+      //   viewEmployeesByManager();
+      //   break;
       case "ADD_EMPLOYEE":
         addEmployee();
         break;
@@ -318,7 +318,7 @@ function addDepartment() {
 function removeDepartment(){
   db.findAllDepartments()
   .then(([rows]) => {
-    let department = rows;
+    let departments = rows;
     const departmentChoices = departments.map(({id, name }) => ({
       name: name, 
       value: id
