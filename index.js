@@ -158,4 +158,36 @@ function updateEmployeeRole() {
         name: `${first_name} ${last_name}`,
         value: id
       }));
+      prompt([
+        {
+          type: "list",
+          name: "employeeId",
+          message: "Which employee's role do you want to update?",
+          choices: employeeChoices
+        }
+      ])
+      .then(res => {
+        let employeeId = res.employeeId;
+        db.findAllRoles()
+          .then(([rows]) => {
+            let roles = rows;
+            const roleChoices = roles.map(({ id, title }) => ({
+              name: title,
+              value: id
+            }));
+            prompt([
+              {
+                type: "list",
+                name: "roleId",
+                message: "Which role do you want to assign the selected employee?",
+                choices: roleChoices
+              }
+            ])
+              .then(res => db.updateEmployeeRole(employeeId, res.roleId))
+              .then(() => console.log("Updated employee's role"))
+              .then(() => loadMainPrompts())
+          });
+      });
+  })
+}
 
