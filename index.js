@@ -150,5 +150,12 @@ function removeEmployee() {
       .then(() => loadMainPrompts())
   })
 }
-
+function updateEmployeeRole() {
+  db.findAllEmployees()
+    .then(([rows]) => {
+      let employees = rows;
+      const employeeChoices = employees.map(({ id, first_name, last_name }) => ({
+        name: `${first_name} ${last_name}`,
+        value: id
+      }));
 
