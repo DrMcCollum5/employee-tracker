@@ -411,7 +411,7 @@ function removeDepartment() {
   })
 }
 // View all departments and show their total utilized department budget
-function viewUtilizeBudgetByDepartment() {
+function viewUtilizedBudgetByDepartment() {
   db.viewDepartmentBudgets()
     .then(([rows]) => {
       let departments = rows;
