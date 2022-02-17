@@ -61,11 +61,9 @@ function loadMainPrompts() {
         {
           name: "Add Department",
           value: "ADD_DEPARTMENT",
+        
         },
-        {
-          name: "Add Department",
-          value: "ADD_DEPARTMENT",
-        },
+        
         {
           name: "Remove Department",
           value: "REMOVE_DEPARTMENT",
