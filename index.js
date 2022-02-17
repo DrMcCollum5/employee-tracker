@@ -145,7 +145,7 @@ function viewEmployeesByDepartment() {
     let departments = rows;
     const departmentChoices = departments.map(({ id, name }) => ({
       name: name,
-      value: id,
+      value: id
     }));
 
     prompt([
@@ -153,8 +153,8 @@ function viewEmployeesByDepartment() {
         type: "list",
         name: "departmentId",
         message: "Which department would you like to see employees for?",
-        choices: departmentChoices,
-      },
+        choices: departmentChoices
+      }
     ])
       .then((res) => db.findAllEmployeesByDepartment(res.departmentId))
       .then(([rows]) => {
@@ -171,7 +171,7 @@ function viewEmployeesByManager() {
     let managers = rows;
     const managerChoices = managers.map(({ id, first_name, last_name }) => ({
       name: `${first_name} ${last_name}`,
-      value: id,
+      value: id
     }));
 
     prompt([
@@ -179,8 +179,8 @@ function viewEmployeesByManager() {
         type: "list",
         name: "managerId",
         message: "Which employee do you want to see direct reports for?",
-        choices: managerChoices,
-      },
+        choices: managerChoices
+      }
     ])
       .then((res) => db.findAllEmployeesByManager(res.managerId))
       .then(([rows]) => {
@@ -192,7 +192,7 @@ function viewEmployeesByManager() {
           console.table(employees);
         }
       })
-      .then(() => loadMainPrompts());
+      .then(() => loadMainPrompts())
   });
 }
 // Delete an employee
@@ -201,7 +201,7 @@ function removeEmployee() {
     let employees = rows;
     const employeeChoices = employees.map(({ id, first_name, last_name }) => ({
       name: `${first_name} ${last_name}`,
-      value: id,
+      value: id
     }));
 
     prompt([
@@ -209,13 +209,13 @@ function removeEmployee() {
         type: "list",
         name: "employeeId",
         message: "Which employee do you want to remove?",
-        choices: employeeChoices,
-      },
+        choices: employeeChoices
+      }
     ])
       .then((res) => db.removeEmployee(res.employeeId))
       .then(() => console.log("Removed employee from the database"))
-      .then(() => loadMainPrompts());
-  });
+      .then(() => loadMainPrompts())
+  })
 }
 
 function updateEmployeeRole() {
@@ -223,37 +223,38 @@ function updateEmployeeRole() {
     let employees = rows;
     const employeeChoices = employees.map(({ id, first_name, last_name }) => ({
       name: `${first_name} ${last_name}`,
-      value: id,
+      value: id
     }));
     prompt([
       {
         type: "list",
         name: "employeeId",
         message: "Which employee's role do you want to update?",
-        choices: employeeChoices,
-      },
-    ]).then((res) => {
+        choices: employeeChoices
+      }
+    ])
+    .then((res) => {
       let employeeId = res.employeeId;
       db.findAllRoles().then(([rows]) => {
         let roles = rows;
         const roleChoices = roles.map(({ id, title }) => ({
           name: title,
-          value: id,
+          value: id
         }));
         prompt([
           {
             type: "list",
             name: "roleId",
             message: "Which role do you want to assign the selected employee?",
-            choices: roleChoices,
-          },
+            choices: roleChoices
+          }
         ])
           .then((res) => db.updateEmployeeRole(employeeId, res.roleId))
           .then(() => console.log("Updated employee's role"))
-          .then(() => loadMainPrompts());
-      });
-    });
-  });
+          .then(() => loadMainPrompts())
+      })
+    })
+  })
 }
 
 function updateEmployeeManager() {
@@ -261,23 +262,24 @@ function updateEmployeeManager() {
     let employees = rows;
     const employeeChoices = employees.map(({ id, first_name, last_name }) => ({
       name: `${first_name} ${last_name}`,
-      value: id,
+      value: id
     }));
     prompt([
       {
         type: "list",
         name: "employeeId",
         message: "Which employee's manager do you want to update?",
-        choices: employeeChoices,
-      },
-    ]).then((res) => {
+        choices: employeeChoices
+      }
+    ])
+    .then((res) => {
       let employeeId = res.employeeId;
       db.findAllPossibleManagers(employeeId).then(([rows]) => {
         let managers = rows;
         const managerChoices = managers.map(
           ({ id, first_name, last_name }) => ({
             name: `${first_name} ${last_name}`,
-            value: id,
+            value: id
           })
         );
         prompt([
@@ -286,15 +288,15 @@ function updateEmployeeManager() {
             name: "managerId",
             message:
               "Which employee do you want to set as manager for the selected employee?",
-            choices: managerChoices,
-          },
+            choices: managerChoices
+          }
         ])
           .then((res) => db.updateEmployeeManager(employeeId, res.managerId))
           .then(() => console.log("Updated employee's manager"))
-          .then(() => loadMainPrompts());
-      });
-    });
-  });
+          .then(() => loadMainPrompts())
+      })
+    })
+  })
 }
 
 function viewRoles() {
@@ -312,30 +314,30 @@ function addRole() {
     let departments = rows;
     const departmentChoices = departments.map(({ id, name }) => ({
       name: name,
-      value: id,
+      value: id
     }));
 
     prompt([
       {
         name: "title",
-        message: "What is the name of the role?",
+        message: "What is the name of the role?"
       },
       {
         name: "salary",
-        message: "What is the salary of the role?",
+        message: "What is the salary of the role?"
       },
       {
         type: "list",
         name: "department_id",
         message: "Which department does the role belong to?",
-        choices: departmentChoices,
+        choices: departmentChoices
       },
     ]).then((role) => {
       db.createRole(role)
         .then(() => console.log(`Added ${role.title}to the database`))
-        .then(() => loadMainPrompts());
-    });
-  });
+        .then(() => loadMainPrompts())
+    })
+  })
 }
 // Delete a role
 function removeRole() {
@@ -343,7 +345,7 @@ function removeRole() {
     let roles = rows;
     const roleChoices = roles.map(({ id, title }) => ({
       name: title,
-      value: id,
+      value: id
     }));
 
     prompt([
@@ -352,13 +354,13 @@ function removeRole() {
         name: "roleId",
         message:
           "Which role do you want to remove? (Warning: This will also remove employees)",
-        choices: roleChoices,
-      },
+        choices: roleChoices
+      }
     ])
       .then((res) => db.removeRole(res.roleId))
       .then(() => console.log("Removed role from the database"))
-      .then(() => loadMainPrompts());
-  });
+      .then(() => loadMainPrompts())
+  })
 }
 // View all departments
 function viewDepartments() {
@@ -376,14 +378,15 @@ function addDepartment() {
   prompt([
     {
       name: "name",
-      message: "What is the name of the department?",
-    },
-  ]).then((res) => {
+      message: "What is the name of the department?"
+    }
+  ])
+  .then((res) => {
     let name = res;
     db.createDepartment(name)
       .then(() => console.log(`Added ${name.name} to the database`))
-      .then(() => loadMainPrompts());
-  });
+      .then(() => loadMainPrompts())
+  })
 }
 // Delete a department
 function removeDepartment() {
@@ -391,7 +394,7 @@ function removeDepartment() {
     let departments = rows;
     const departmentChoices = departments.map(({ id, name }) => ({
       name: name,
-      value: id,
+      value: id
     }));
 
     prompt({
@@ -399,12 +402,12 @@ function removeDepartment() {
       name: "departmentId",
       message:
         "Which department would you like to remove? (Warning: This will also remove associated roles and employees)",
-      choices: departmentChoices,
+      choices: departmentChoices
     })
       .then((res) => db.removeDepartment(res.departmentId))
       .then(() => console.log(`Removed department from the database`))
-      .then(() => loadMainPrompts());
-  });
+      .then(() => loadMainPrompts())
+  })
 }
 // View all departments and show their total utilized department budget
 function viewUtilizeBudgetByDepartment() {
