@@ -141,7 +141,8 @@ function viewEmployees() {
 }
 
 function viewEmployeesByDepartment() {
-  db.findAllDepartments().then(([rows]) => {
+  db.findAllDepartments()
+  .then(([rows]) => {
     let departments = rows;
     const departmentChoices = departments.map(({ id, name }) => ({
       name: name,
@@ -162,7 +163,7 @@ function viewEmployeesByDepartment() {
         console.log("\n");
         console.table(employees);
       })
-      .then(() => loadMainPrompts());
+      .then(() => loadMainPrompts())
   });
 }
 
