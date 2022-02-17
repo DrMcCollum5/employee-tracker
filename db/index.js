@@ -24,28 +24,27 @@ class DB {
     return this.connection.promise().query("INSERT INTO employee SET ?", employee);
   }
   removeEmployee(employeeId) {
-    return this.connection
-      .promise()
-      .query("DELETE FROM employee WHERE id = ?", employeeId);
+    return this.connection.promise().query(
+      "DELETE FROM employee WHERE id = ?",
+       employeeId
+      );
   }
   updateEmployeeRole(employeeId, roleId) {
-    return this.connection
-      .promise()
-      .query("UPDATE employee SET role_id = ? WHERE id = ?", [
-        roleId,
-        employeeId,
-      ]);
+    return this.connection.promise().query(
+      "UPDATE employee SET role_id = ? WHERE id = ?", 
+      [roleId, employeeId]
+      );
   }
   updateEmployeeManager(employeeId, managerId) {
-    return this.connection
-      .promise()
-      .query("UPDATE employee SET manager_id = ? WHERE id = ?", [
-        managerId,
-        employeeId,
-      ]);
+    return this.connection.promise().query(
+      "UPDATE employee SET manager_id = ? WHERE id = ?",
+       [managerId, employeeId]
+       );
   }
   findAllRoles() {
-    return this.connection.query("SELECT role.id, role.title, department.name AS department, role.salary FROM role LEFT JOIN department on role.department_id = department.id;");
+    return this.connection.query(
+      "SELECT role.id, role.title, department.name AS department, role.salary FROM role LEFT JOIN department on role.department_id = department.id;"
+      );
   }
   createRole(role) {
     return this.connection.promise().query("INSERT INTO role SET ?", role);
